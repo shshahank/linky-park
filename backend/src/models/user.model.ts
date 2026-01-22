@@ -1,39 +1,53 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        unique: true,
-        required: true,
-        lowercase: true,
-        maxlength: 50,
-        trim: true
-    },
-    first_name: {
-        type: String,
-        required: true,
-        maxlength: 50,
-        trim: true
-    },
-    last_name: {
-        type: String,
-        required: true,
-        maxlength: 50,
-        trim: true
-    },
-     email : {
-    type : String,
-    unique : true,
-    required : true,
-    trim : true
-  },
-  password: {
-    type: String,
-    required: true
-  }
-});
+export interface IUser {
+    username: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
+}
 
+const userSchema = new mongoose.Schema(
+    {
+        username: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+            maxlength: 50,
+        },
+        first_name: {
+            type: String,
+            required: true,
+            trim: true,
+            maxlength: 50,
+        },
+        last_name: {
+            type: String,
+            required: true,
+            trim: true,
+            maxlength: 50,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+        },
+        password: {
+            type: String,
+            required: true,
+            select: false, // prevents accidental exposure
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;

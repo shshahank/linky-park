@@ -1,16 +1,25 @@
 import mongoose from "mongoose";
 
-const tagSchema = new mongoose.Schema({
-    title : {
-        type : String,
-        required : true, 
-        unique : true, 
-        trim : true,
-        lowercase : true,
-        maxlength : 30
-    }
-});
+export interface ITag {
+    title: string;
+}
 
-const Tag = mongoose.model("Tag", tagSchema);
+const tagSchema = new mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: true,
+            unique: true,
+            trim: true,
+            lowercase: true,
+            maxlength: 30,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+const Tag = mongoose.model<ITag>("Tag", tagSchema);
 
 export default Tag;
