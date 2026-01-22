@@ -1,19 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 
 const validateRequest =
-  (schema: any) =>
-  (req: Request, res: Response, next: NextFunction) => {
-    const result = schema.safeParse(req.body);
+    (schema: any) =>
+        (req: Request, res: Response, next: NextFunction) => {
+            const result = schema.safeParse(req.body);
 
-    if (!result.success) {
-      return res.status(400).json({
-        errors: result.error.flatten().fieldErrors,
-      });
-    }
+            if (!result.success) {
+                return res.status(400).json({
+                    errors: result.error.flatten().fieldErrors,
+                });
+            }
 
-    // replace body with validated & transformed data
-    req.body = result.data;
-    next();
-  };
+            // replace body with validated & transformed data
+            req.body = result.data;
+            next();
+        };
 
 export default validateRequest;
