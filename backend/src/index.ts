@@ -1,12 +1,16 @@
 import express from "express";
 import cors from "cors";
 import v1Routes from "./routes/index";
-import { PORT, DATABASE_URL } from "./config";
+import { PORT } from "./config";
+import connectDB from "./database";
 const app = express();
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Connect to DB
+connectDB();
 
 app.get("/", (req, res) => {
     res.status(200).json({
