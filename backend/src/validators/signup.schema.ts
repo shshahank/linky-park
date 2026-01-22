@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const signupSchema = z.object({
+const signupSchema = z.object({
   username: z
     .string()
     .min(1, "Username can't be empty")
@@ -36,5 +36,7 @@ export const signupSchema = z.object({
     .regex(/[@$!%*?&]/, "Password must contain a special character")
     .trim(),
 });
+
+export default signupSchema;
 
 export type SignupInput = z.infer<typeof signupSchema>;

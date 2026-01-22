@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const signinSchema = z.object({
+const signinSchema = z.object({
   username: z
     .string()
     .min(1, "Username can't be empty")
@@ -14,5 +14,7 @@ export const signinSchema = z.object({
     .max(50, "Password must be 50 characters or less")
     .trim(),
 });
+
+export default signinSchema;
 
 export type SigninInput = z.infer<typeof signinSchema>;
